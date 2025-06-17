@@ -199,13 +199,13 @@ ddr_axi_slave das1 (
     $display("Write DEADBEEF, C0DECAFE, 12345678, 87654321 done.");
 
     // Delay
-    repeat (10) @(posedge ACLK);
+    repeat (2) @(posedge ACLK);
 	$display("Time %0t   === Write 4 beats to 0x1000 ===",$time);
 	 write4(32'h0000_1000, 32'hFADE_DEAF, 32'hFEED_DEED, 32'hDEC0_DED1, 32'h4159_4148);
     $display("Write FADEDEAF, FEEDDEED, DEC0DED1, 41594148 done.");
 
     // Delay
-    repeat (10) @(posedge ACLK);
+    repeat (2) @(posedge ACLK);
 
     // Example: read 4 beats from address 0x1000
 
@@ -213,7 +213,7 @@ ddr_axi_slave das1 (
     read4(32'h0000_0000, r0, r1, r2, r3);
     $display("Read data: %0h, %0h, %0h, %0h", r0, r1, r2, r3);
 	// Delay
-	repeat (10) @(posedge ACLK);
+	repeat (2) @(posedge ACLK);
 	$display("Time %0t   === Read 4 beats from 0x1000 ===",$time);
     read4(32'h0000_1000, r0, r1, r2, r3);
     $display("Read data: %0h, %0h, %0h, %0h", r0, r1, r2, r3);
