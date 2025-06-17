@@ -48,11 +48,11 @@ A synthesizable DDR1 SDRAM subsystem comprising:
 
 | File/Folder | Description |
 |-------------|-------------|
-| `rtl/ddr_controller.sv` │ Generates DDR commands (RAS/CAS/WE, addr, ba, CKE, etc.) | 
+| `rtl/ddr_controller.sv` | Generates DDR commands (RAS/CAS/WE, addr, ba, CKE, etc.) | 
 | `rtl/ddr_sdram_control_logic.sv` | Decodes DDR commands and drives/receives DQ/DQS to mimic DRAM pins |
-│ `rtl/memory_array.sv` | Behavioral DDR1 SDRAM model (internal array + burst logic) |
-│ `rtl/ddr_memory_subsystem.sv` | Wrapper connecting host interface, controller, control logic & SDRAM model |
-│ `rtl/top_level_ddr_axi_slave.sv` | AXI3-like slave interface to drive the DDR subsystem |
+| `rtl/memory_array.sv` | Behavioral DDR1 SDRAM model (internal array + burst logic) |
+| `rtl/ddr_memory_subsystem.sv` | Wrapper connecting host interface, controller, control logic & SDRAM model |
+| `rtl/top_level_ddr_axi_slave.sv` | AXI3-like slave interface to drive the DDR subsystem |
 | `tb/ddr_axi_slave_tb.sv` | Functional testbench for AXI-driven read/write sequences |
 | `README.md` | This file |
 
