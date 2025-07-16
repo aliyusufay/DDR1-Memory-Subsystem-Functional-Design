@@ -2,8 +2,7 @@ module memory_array #(
 parameter ROW_WIDTH = 14,
 parameter COL_WIDTH = 10
 )(
-input logic clk,
-input logic clkn,
+input logic clk2x,
 input logic [COL_WIDTH-1:0] ca,			//Column Address
 input logic [ROW_WIDTH-1:0] ra [4],		//Row Address
 input logic [1:0] ba,					//Bank Address
@@ -21,7 +20,13 @@ localparam MAX_BL = 8;
 localparam tDSGN = 32'h41594148;
 localparam DW = 16;
 assign burst_length = (burst_len == 1) ? 'd2 : (burst_len == 2) ? 'd4 : (burst_len == 3) ? 'd8 : 'bz; // Burst Length 2,4,8
-logic [DW-1:0] memory_array [4][(1<<ROW_WIDTH)-1:0][(1<<COL_WIDTH)-1:0] = '{default:'0}; //Array
+`ifdef SYNTHESIS
+  // Dummy small array or empty module for synthesis
+  logic [DW-1:0] memory_array [4][0:15][0:15]; // Small dummy memory
+`else
+  // Full model for simulation
+  logic [DW-1:0] memory_array [4][(1<<ROW_WIDTH)-1:0][(1<<COL_WIDTH)-1:0] = '{default:'0};
+`endif
 logic [COL_WIDTH-1:0] bca [MAX_BL];
 int i = 0;
 always_comb begin
@@ -46,7 +51,7 @@ always_comb begin
     end
 end
 
-always_ff @(posedge clk or posedge clkn) begin
+always_ff @(posedge clk2x) begin
 	if (burst_stop) begin
 		data_out <= 'bx;
 	end else if (row_active [ba]) begin
