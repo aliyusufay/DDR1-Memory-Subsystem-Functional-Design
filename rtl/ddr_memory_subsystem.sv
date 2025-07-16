@@ -15,7 +15,7 @@ module ddr_memory_subsystem(
 );
 
   // DDR-side
-  logic         clkout, clkoutn, cke, cs_n, ras_n, cas_n, we_n;
+  logic         clkout, clk2xout, cke, cs_n, ras_n, cas_n, we_n;
   logic [1:0]   ba;
   logic [13:0]  addrout;
   logic         dm, ldm;
@@ -36,7 +36,7 @@ module ddr_memory_subsystem(
     .dataout_valid   (dataout_valid),
     .datain_valid    (datain_valid),
     .clkout          (clkout),
-    .clkoutn         (clkoutn),
+    .clk2xout        (clk2xout),
     .cke             (cke),
     .cs_n            (cs_n),
     .ras_n           (ras_n),
@@ -52,7 +52,7 @@ module ddr_memory_subsystem(
 
   ddr_sdram_control_logic d1 (
 	.clk		(clkout),
-	.clkn		(clkoutn),
+	.clk2x		(clk2xout),
 	.cke		(cke),
 	.cs_n		(cs_n),
 	.ras_n		(ras_n),
