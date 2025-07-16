@@ -219,7 +219,7 @@ ddr_axi_slave das1 (
     $display("Read data: %0h, %0h, %0h, %0h", r0, r1, r2, r3);
 
     // End simulation
-    #1000;
+    #10;
     $finish;
   end
 endmodule
