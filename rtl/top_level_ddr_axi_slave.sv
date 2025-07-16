@@ -43,7 +43,7 @@ logic [31:0] iaddr;
 logic [3:0] dmsel;
 logic busy;
 logic [31:0] dataout;
-logic dataout_valid = 0;
+logic dataout_valid;
 logic datain_valid;
 
 ddr_memory_subsystem dms1(
