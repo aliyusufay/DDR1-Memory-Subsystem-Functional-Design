@@ -1,6 +1,6 @@
 # DDR1 Memory Subsystem – Functional Design (SystemVerilog)
 
-A functional DDR1 SDRAM subsystem model comprising:
+A synthesizeable DDR1 SDRAM subsystem functional model comprising:
 1. A timing-accurate DDR1 controller that generates DDR command signals.
 2. A control-logic block that decodes those signals.
 3. A behavioral DDR1 SDRAM model (memory array) that, with the control logic, mimics a DRAM stick.
