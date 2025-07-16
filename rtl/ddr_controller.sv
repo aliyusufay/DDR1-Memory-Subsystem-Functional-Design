@@ -15,7 +15,7 @@ module ddr_controller(
 	input logic datain_valid,	// This signal indicates when the user can start sending in data through datain bus during a write.
 	// DDR SDRAM side Signals	
 	output logic clkout,
-	output logic clkoutn,
+	output logic clk2xout,
     output logic cke,
     output logic cs_n,			// [RANK_SIZE-1:0] This controller supports 1 RANK DIMMs
     output logic ras_n,
@@ -29,7 +29,7 @@ module ddr_controller(
     inout logic dqs
 );
 assign clkout = clk;
-assign clkoutn = 1-clk;
+assign clk2xout = clk2x;
 
 // Timing Parameters
 parameter tRCD = 2;			// Row to Column Delay
@@ -178,6 +178,7 @@ always_ff @(posedge clk or negedge rst_n) begin
 		wi <= 0;
 		ri1 <= 0;
 		ri2 <= 0;
+		dataout_valid <= 'b0;
     end else if (init_done) begin
         if (count == FIFO_DEPTH-1) begin
 			full = 1;
@@ -1360,7 +1361,7 @@ always_ff @(posedge clk2x or negedge rst_n) begin
 		counter_wc <= 0;
 		store_dout <= 'b0;
 		//datain_valid <= 'b0;
-		dataout_valid <= 'b0;
+		//dataout_valid <= 'b0;
 	end else begin
 		case (current_state)
 			WRITE, WRITE_WITH_AUTOPRECHARGE: begin
