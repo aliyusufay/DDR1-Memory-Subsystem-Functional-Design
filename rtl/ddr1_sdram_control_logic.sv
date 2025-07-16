@@ -1,6 +1,6 @@
 module ddr_sdram_control_logic(
 	input logic clk,
-	input logic clkn,
+	input logic clk2x,
 	input logic cke,
 	input logic cs_n,
 	input logic ras_n,
@@ -29,8 +29,7 @@ logic ap;
 logic [15:0] data_in_reg;		// Input data buffer
 logic [15:0] data_out_reg;		// Output data buffer
 logic dqs_en = 0;                 
-logic dq_en = 0;
-logic clk2x = 0;                  
+logic dq_en = 0;                  
 logic cke_ps, cke_cs;         // cke previous/current state
 
 // Address decoder signals
@@ -44,8 +43,7 @@ logic read_active = 0, write_active = 0;
 logic [3:0] burst_length;
 logic burst_stop;
 memory_array m1(
-	.clk(clk),
-	.clkn(clkn),
+	.clk2x(clk2x),
 	.ca(d_col_add),			//Column Address
 	.ra(row_addr),		//Row Address
 	.ba(c_ba),					//Bank Address
@@ -419,8 +417,7 @@ end
 
 //int i=0,j=0;
 
-always_ff @(posedge clk or posedge clkn) begin
-	clk2x <= ~clk2x;
+always_ff @(posedge clk2x) begin
 	case (current_state)
 		READ, READ_WITH_AUTOPRECHARGE: begin
 			if (burst_counter < burst_length) begin
